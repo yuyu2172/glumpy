@@ -195,9 +195,13 @@ class Trackball(Transform):
         dx = (2.*dx)/width
         y  = (height - y*2.0)/height
         dy = -(2.*dy)/height
-        self._trackball.drag_to(x,y,dx,dy)
-        self["model"] = self._trackball.model
-
+        if button == 2:
+            # Left click
+            self["view"] = glm.translate(self._view, dx, dy, 0)
+        elif button == 8:
+            # Right click
+            self._trackball.drag_to(x,y,dx,dy)
+            self["model"] = self._trackball.model
 
     def on_mouse_scroll(self, x, y, dx, dy):
         width = self._width
